@@ -12,7 +12,6 @@ const routes = [
   {
     path: '',
     redirect: '/auth',
-    component: Auth,
   },
   {
     path: '/auth',
@@ -23,7 +22,11 @@ const routes = [
     path: '/home',
     name: 'Home',
     component: Home
-  }
+  },
+  {
+    path: '/404',
+    component: () => import('components/error/NotFound.vue')
+}
 ]
 
 const router = new VueRouter({

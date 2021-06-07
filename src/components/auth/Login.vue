@@ -1,5 +1,13 @@
 <template>
   <div id="login">
+    <el-alert
+      v-if="isAlert"
+      title="Error"
+      type="error"
+      description="User does not exist or worng password"
+      show-icon
+      @close="closeAlert">
+  </el-alert>
     <form @submit.prevent="handleSubmit" class="login-card">
       <div class="rc-input_group">
         <div class="rc-input">
@@ -30,7 +38,8 @@
     data: function() {
       return {
         user:'',
-        password:''
+        password:'',
+        isAlert: false
       };
     },
 
@@ -45,21 +54,22 @@
           },
           method: 'post'
         })
-        .then(function(res){
+        .then(res => {
           console.log(res)
           localStorage.setItem('authToken', res.data.authToken);
           this.$router.push({
-              name: 'home',
-              // params: { handle: res.data.user.handle }
+              path: 'home'
           });
         })
-        .catch(function(err){
-          console.log(err)
+        .catch(err => {
+          console.log(1);
+          console.log(err);
+          this.isAlert = true;
         });
       },
-
-      
-
+      closeAlert() {
+        this.isAlert = false;
+      }
     }
 
   }
@@ -67,5 +77,5 @@
 </script>
  
 <style scope>
-  @import "../../assets/css/auth.css";
+  @import "~assets/css/auth.css";
 </style>
