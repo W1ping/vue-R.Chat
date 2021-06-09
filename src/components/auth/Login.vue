@@ -55,14 +55,13 @@
           method: 'post'
         })
         .then(res => {
-          console.log(res)
-          localStorage.setItem('authToken', res.data.authToken);
+          this.$store.dispatch('saveToken', res.data.authToken);
+          this.$store.dispatch('saveUserId', res.data.userId);
           this.$router.push({
               path: 'home'
           });
         })
         .catch(err => {
-          console.log(1);
           console.log(err);
           this.isAlert = true;
         });
