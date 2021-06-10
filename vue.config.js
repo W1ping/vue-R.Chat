@@ -18,7 +18,11 @@ module.exports = {
         '/api': {
             target: 'http://106.55.131.112:3000',
             changeOrigin: true
-        }
+        },
+        'avatar': {
+          target: 'http://106.55.131.112:3000',
+          changeOrigin: true
+      }
     }
   }
   

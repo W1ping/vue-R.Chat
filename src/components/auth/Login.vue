@@ -57,6 +57,8 @@
         .then(res => {
           this.$store.dispatch('saveToken', res.data.authToken);
           this.$store.dispatch('saveUserId', res.data.userId);
+          localStorage.setItem("X-Auth-Token", res.data.authToken);
+          localStorage.setItem("X-User-Id", res.data.userId);
           this.$router.push({
               path: 'home'
           });
