@@ -7,10 +7,10 @@
       </div>
 
       <div class="userMess memberTabFlex">
-        <div class="userName">
+        <div class="userName userMessFlex">
           <span>O {{channelName}}</span>
         </div>
-        <div class="userLastMess">
+        <div class="userLastMess userMessFlex">
           <span>{{lastMessage.u.username}}:{{lastMessage.msg}}</span>
         </div>
       </div>
@@ -37,6 +37,7 @@
   
   .memberTab {
     line-height: normal;
+    color: rgb(158, 162, 168);
   }
   .memberTab::after {
     content: '';
@@ -44,10 +45,27 @@
     display: block;
   }
   .userMess{
+    /* width: 60px; */
+    font-size: 12px;
     float: left;
     margin: 0px 5px;
     padding: 3px;
+    
+    display: flex;
+    flex-direction: column;
+
+
   }
+  .userMessFlex{
+    margin: 2px 0px;
+    flex: 1;  
+  }
+
+  .userName {
+    /* float: left; */
+    text-align:initial;
+  }
+
   .userAvatar {
     float: left;
   }
@@ -56,7 +74,6 @@
     height: 44px;
   }
   .userLastMess {
-    width: 100px;
     overflow: hidden;
     text-overflow:ellipsis;
     white-space: nowrap;

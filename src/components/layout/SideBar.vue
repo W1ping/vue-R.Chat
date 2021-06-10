@@ -30,12 +30,13 @@
  
 <style scoped>
   #SideBar {
-    background-color: white
+    background-color: rgb(47, 52, 61);
   }
   .el-header, .el-footer {
     color: #333;
     text-align: center;
     line-height: 60px;
+    background-color: rgb(158, 162, 168);
   }
   .el-main {
     color: #333;
