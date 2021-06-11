@@ -31,16 +31,12 @@
     mounted() {
       // console.log('111',this.$store.getters.getUserToken);
       return request({
-        url: 'channels.list',
+        url: 'channels.list.joined',
         // headers: {'X-Auth-Token':this.$store.getters.getUserToken,'X-User-Id':this.$store.getters.getUserId}
         headers: {'X-Auth-Token':localStorage.getItem("X-Auth-Token"),'X-User-Id':localStorage.getItem("X-User-Id")}
       })
       .then(res => {
-        console.log(res);
         this.channels = res.channels;
-        this.channelName = this.channels[0].name;
-        this.lastMessage = this.channels[0].lastMessage;
-        console.log(this.channels);
         // console.log(localStorage.getItem("X-Auth-Token"),localStorage.getItem("X-User-Id"))
 
       })

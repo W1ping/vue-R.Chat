@@ -19,7 +19,7 @@ module.exports = {
             target: 'http://106.55.131.112:3000',
             changeOrigin: true
         },
-        'avatar': {
+        '/avatar': {
           target: 'http://106.55.131.112:3000',
           changeOrigin: true
       }

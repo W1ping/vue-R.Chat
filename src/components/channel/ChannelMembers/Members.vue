@@ -1,7 +1,7 @@
 <template>
   <div id="members">
     <div class="memberTab">
-
+      
       <div class="userAvatar memberTabFlex">
         <img :src="avatarUrl" alt="">
       </div>
@@ -11,7 +11,7 @@
           <span>O {{channelName}}</span>
         </div>
         <div class="userLastMess userMessFlex">
-          <span>{{lastMessage.u.username}}:{{lastMessage.msg}}</span>
+          <span>{{username}}:{{lastmsg}}</span>
         </div>
       </div>
 
@@ -25,7 +25,9 @@
     name: 'Members',
     data: function(){
       return {
-        avatarUrl: 'http://106.55.131.112:3000/avatar/room/'+this.avatarRid+'?format=png'
+        avatarUrl: 'http://106.55.131.112:3000/avatar/room/'+this.avatarRid,
+        username: this.lastMessage.u.username,
+        lastmsg: this.lastMessage.msg
       }
     },
     props: ['lastMessage','channelName','avatarRid']
@@ -68,6 +70,7 @@
 
   .userAvatar {
     float: left;
+    margin: 0px 5px;
   }
   .userAvatar img {
     width: 44px;

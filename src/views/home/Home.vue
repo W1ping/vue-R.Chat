@@ -6,9 +6,9 @@
         <SideBar />
       </el-aside>
       <el-container>
-        <el-header>Header</el-header>
-        <el-main>Main</el-main>
-        <el-footer>Footer</el-footer>
+        <el-header>Home-Header</el-header>
+        <el-main><Room /></el-main>
+        <el-footer>Home-Footer</el-footer>
       </el-container>
   </el-container>
 
@@ -18,13 +18,17 @@
  
 <script>
   import SideBar from 'components/layout/SideBar.vue';
-  
+  import Room from 'components/room/Room.vue';
   export default {
     name: 'Home',
     components: {
-      SideBar
+      SideBar,
+      Room
     },
-    
+    beforeDestroy: function (){
+      localStorage.clear();
+      console.log('beforeDestroy');
+    }
   }
 </script>
  
@@ -32,32 +36,41 @@
   #Home {
     position: relative;
   }
-  .el-container{
-    height: 100vh;
-  }
-  .el-header, .el-footer {
-    background-color: #B3C0D1;
-    color: #333;
-    text-align: center;
-    line-height: 60px;
-  }
-  .el-aside {
-    background-color: #D3DCE6;
-    /* color: #333; */
-    text-align: center;
-    line-height: 200px;
-    overflow: hidden;
-    width:280px;
-  }
-  
-  .el-main {
-    background-color: #E9EEF3;
-    color: #333;
-    text-align: center;
-    line-height: 160px;
-  }
-  
-  body > .el-container {
-    margin-bottom: 40px;
-  }
+  .wrapper {
+  height: 100vh;
+  background-color: rgb(47, 52, 61);
+  /* // background-color: #606266; */
+}
+.banner {
+  width: 100vh;
+  margin: 20px auto;
+  font-size: 100px;
+  color: rgb(245, 69, 92);
+}
+.fields {
+    width: 100vh;
+    /* // height: 250px; */
+    background-color: white;
+    padding: 20px;
+    margin: 20px auto;
+}
+.login_card {
+  padding: 40px;
+}
+
+.rc-button_group {
+  display: flex;
+}
+.rc-button {
+  flex: 1;
+}
+.info_group{
+  padding: 5px;
+}
+.register_link{
+  color: rgb(245, 69, 92);
+}
+.info_group span{
+  margin-right: 8px;
+}
 </style>

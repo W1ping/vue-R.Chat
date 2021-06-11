@@ -39,7 +39,8 @@
     background-color: rgb(158, 162, 168);
   }
   .el-main {
-    color: #333;
+    background-color: rgb(47, 52, 61);
+    color: #333; 
     text-align: center;
     line-height: 160px;
     overflow: hidden;
