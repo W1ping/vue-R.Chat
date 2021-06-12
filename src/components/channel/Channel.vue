@@ -2,10 +2,17 @@
   <div id="channel">
     <div class="memberList" >
       <div class="memberData" v-for="(item,index) in channels" :key="index">
-        <Members :channelName="channels[index].name" 
-                 :lastMessage="channels[index].lastMessage"
-                 :avatarRid="channels[index].lastMessage.rid"
-                />
+        <router-link :to="{
+            path:'/room', 
+            query:{
+              roomId:channels[index]._id
+            } 
+          }" >
+        <!-- <router-link to="/room/GENERAL" > -->
+          <Members :channelName="channels[index].name" 
+                  :lastMessage="channels[index].lastMessage"
+                  :avatarRid="channels[index].lastMessage.rid"/>
+         </router-link>
       </div>
       
     </div>

@@ -5,6 +5,7 @@ import Router from 'vue-router'
 // 懒加载
 const Auth = () => import('views/auth/Auth.vue')
 const Home = () => import('views/home/Home.vue')
+const Room = () => import('views/room/Room.vue')
 
 Vue.use(Router)
 
@@ -22,6 +23,12 @@ const routes = [
     path: '/home',
     name: 'Home',
     component: Home
+  },
+  {
+    path: '/room',
+    // path: '/room/:roomId',
+    name: 'Room',
+    component: Room
   },
   {
     path: '/404',

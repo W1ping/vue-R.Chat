@@ -7,7 +7,7 @@
       </el-aside>
       <el-container>
         <el-header>Home-Header</el-header>
-        <el-main><Room /></el-main>
+        <el-main></el-main>
         <el-footer>Home-Footer</el-footer>
       </el-container>
   </el-container>
@@ -18,15 +18,13 @@
  
 <script>
   import SideBar from 'components/layout/SideBar.vue';
-  import Room from 'components/room/Room.vue';
   export default {
     name: 'Home',
     components: {
       SideBar,
-      Room
     },
     beforeDestroy: function (){
-      localStorage.clear();
+      // localStorage.clear();
       console.log('beforeDestroy');
     }
   }

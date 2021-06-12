@@ -4,10 +4,10 @@
 
       <el-header>SideBar-Header</el-header>
 
-      <el-main>
-        <Channel/>
-      </el-main>
-
+        <el-main>
+          <Channel/>
+        </el-main>
+      
       <el-footer>
           <i class="el-icon-user"></i>
           <router-link to="/home">SideBar-Footer -- R.Chat</router-link>
