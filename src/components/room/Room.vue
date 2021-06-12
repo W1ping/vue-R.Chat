@@ -7,8 +7,8 @@
         <el-main>
 
           <ul class="msgList">
-            <li class="message" v-for="(item,index) in msgList" :key="index">
-              <Message :messages="messages[index]"/>
+            <li class="message" v-for="(item,index) in messages" :key="index">
+              <Message :userName="userName[index]" :ts="ts[index]" :msg="msg[index]"  />
             </li>
           </ul>
           
@@ -22,7 +22,7 @@
  
 <script>
   import { request } from 'network/request.js';
-
+  import { formatData } from 'assets/js/timeZoneFormat.js'
   import Message from 'components/message/Message.vue';
 
   export default {
@@ -30,7 +30,10 @@
     data() {
       return {
         msgList: [1,2,3,4,5,6],
-        messages: []
+        messages: [],
+        userName: [],
+        ts: [],
+        msg: []
       }
     },
     components: {
@@ -38,12 +41,19 @@
     },
     mounted() {
       return request({
-        url: 'channels.history?roomId=GENERAL',
+        // url: 'channels.history?roomId=kD8vwKzpBnaRQhNBb',
+        url: 'channels.history?roomId=GENERAL&inclusive=true',
         headers: {'X-Auth-Token':localStorage.getItem("X-Auth-Token"),'X-User-Id':localStorage.getItem("X-User-Id")}
       })
       .then(res => {
         console.log(res);
-        this.messages = res.messages;
+        this.messages = res.messages.reverse();
+        this.messages.map(item => {
+          this.userName.push(item.u.username);
+          // this.ts.push(new Date(Date.parse(item.ts)).toLocaleTimeString());
+          this.ts.push(formatData(item.ts));
+          this.msg.push(item.msg);
+        })
       })
       .catch(err => {
         console.log(err);

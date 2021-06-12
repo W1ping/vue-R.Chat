@@ -3,18 +3,18 @@
     <div class="msgTab">
 
       <div class="avatar">
-        <img src="~assets/logo.png" alt="">
+        <img :src="avatarUrl" alt="">
       </div>
 
       <div class="perMsg">
         
         <div class="msgTitle">
-          <span>{{messages.u.username}}</span>
-          <span>{{messages.ts}}</span>
+          <span>{{userName}}</span>
+          <span>{{ts}}</span>
         </div>
 
         <div class="msg">
-          <p>{{messages.msg}}</p>
+          <p>{{msg}}</p>
         </div>
 
       </div>
@@ -30,9 +30,10 @@
     name: 'Message',
     data() {
       return {
+        avatarUrl: 'http://106.55.131.112:3000/avatar/'+this.userName,
       }
     },
-    props: ['messages'],
+    props: ['userName','ts','msg'],
   }
 </script>
  
