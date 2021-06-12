@@ -84,6 +84,10 @@
       }
       
     },
+    
+    beforeCreate() {
+      localStorage.clear();
+    }
   }
 </script>
  

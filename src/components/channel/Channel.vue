@@ -1,17 +1,13 @@
 <template>
   <div id="channel">
     <div class="memberList" >
-      <div class="memberData" v-for="(item,index) in channels" :key="index">
-        <router-link :to="{
-            path:'/room', 
-            query:{
-              roomId:channels[index]._id
-            } 
-          }" >
-        <!-- <router-link to="/room/GENERAL" > -->
-          <Members :channelName="channels[index].name" 
-                  :lastMessage="channels[index].lastMessage"
-                  :avatarRid="channels[index].lastMessage.rid"/>
+      <div class="memberData" v-for="(item,index) in channels" :key="index" >
+        <router-link 
+        :to="{ path:'/room', query:{roomId:channels[index]._id}}" 
+        @click.native="roomMsg(index)">
+          <Members :channelName="channelName[index]" 
+                  :lastMessage="lastMessage[index]"
+                  :avatarRid="avatars[index]"/>
          </router-link>
       </div>
       
@@ -28,28 +24,42 @@
       return {
         channels: [],
         channelName: [],
-        lastMessage: {},
+        lastMessage: [],
         avatars: [],
       }
     },
     components: {
       Members
     },
+    methods: {
+      getChannelsListJoined() {
+        return request({
+          url: 'channels.list.joined',
+          // headers: {'X-Auth-Token':this.$store.getters.getUserToken,'X-User-Id':this.$store.getters.getUserId}
+          headers: {'X-Auth-Token':localStorage.getItem("X-Auth-Token"),'X-User-Id':localStorage.getItem("X-User-Id")}
+        })
+        .then(res => {
+          this.channels = res.channels;
+          this.channels.map(item => {
+            this.channelName.push(item.name);
+            this.lastMessage.push(item.lastMessage);
+            this.avatars.push(item.lastMessage.rid);
+          })
+        })
+        .catch(err => {
+          console.log(err);
+        });
+      },
+      roomMsg(index) {
+        this.$bus.$emit('roomInfo',{
+          'title': this.channelName[index],
+          'avatarRid': 'http://106.55.131.112:3000/avatar/room/'+this.avatars[index]
+          }
+        );
+      }
+    },
     mounted() {
-      // console.log('111',this.$store.getters.getUserToken);
-      return request({
-        url: 'channels.list.joined',
-        // headers: {'X-Auth-Token':this.$store.getters.getUserToken,'X-User-Id':this.$store.getters.getUserId}
-        headers: {'X-Auth-Token':localStorage.getItem("X-Auth-Token"),'X-User-Id':localStorage.getItem("X-User-Id")}
-      })
-      .then(res => {
-        this.channels = res.channels;
-        // console.log(localStorage.getItem("X-Auth-Token"),localStorage.getItem("X-User-Id"))
-
-      })
-      .catch(err => {
-        console.log(err);
-      });
+      this.getChannelsListJoined();
     }
   }
 </script>

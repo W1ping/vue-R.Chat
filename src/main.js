@@ -9,6 +9,8 @@ import store from './store'
 
 Vue.config.productionTip = false;
 
+Vue.prototype.$bus = new Vue();   //事件总线
+
 Vue.use(ElementUI);
 
 new Vue({

@@ -7,7 +7,14 @@
       </el-aside>
 
       <el-container>
-        <el-header>{{roomTitle}}</el-header>
+        <el-header class="room-header">
+          <div class="roomAvatar">
+            <img :src="roomAvatarUrl" alt="">
+          </div>
+          <div class="roomTitle">
+            <span>{{roomTitle}}</span>
+          </div>
+        </el-header>
 
         <el-main>
           <ul class="msgList">
@@ -35,6 +42,7 @@
       return {
         msgList: [1,2,3,4,5,6],
         roomTitle: 'Room-Title',
+        roomAvatarUrl: 'assets/logo.png',
         roomId: '',
         messages: [],
         userName: [],
@@ -49,12 +57,10 @@
     methods: {
         getRoomData() {
           return request({
-          // url: 'channels.history?roomId=kD8vwKzpBnaRQhNBb',
           url: 'channels.history?roomId='+this.roomId,
           headers: {'X-Auth-Token':localStorage.getItem("X-Auth-Token"),'X-User-Id':localStorage.getItem("X-User-Id")}
         })
         .then(res => {
-          // console.log(res);
           this.messages = res.messages.reverse();
           this.messages.map(item => {
             this.userName.push(item.u.username);
@@ -66,32 +72,36 @@
         .catch(err => {
           console.log(err);
         })
+        
       },
       dataInit() {
+        this.roomAvatarUrl = "";
         this.messages= [];
         this.userName= [];
         this.ts= [];
         this.msg= [];
-      }
-    },
-    created() {
-      this.roomId = this.$route.query.roomId;
-      // this.roomId = this.$route.params.roomId;
-      // console.log(this.$route.params.roomId);
-      console.log(this.roomId);
+      },
+      getRoomInfo() {
+        this.$bus.$on("roomInfo",  res=> {
+          this.roomTitle = res.title;
+          this.roomAvatarUrl = res.avatarRid;
+          console.log(this.roomTitle,this.roomAvatarUrl);
+        })
+      },
+      
     },
     watch: { 
       $route: { 
         handler: function() { 
           this.roomId = this.$route.query.roomId;
-          // this.roomTitle = this.$route.query.roomTitle;
           this.dataInit()
           this.getRoomData(); 
+          this.getRoomInfo();
         } 
       } 
     },
     mounted() {
-      this.getRoomData();
+      
     }
   }
 </script>
@@ -104,5 +114,24 @@
   .message {
     padding: 8px 50px 4px 50px;
     margin-bottom: 10px;
+  }
+  .room-header {
+    text-align: initial;
+    line-height: normal;
+    padding: 0px 24px;
+    font-weight: bolder;
+  }
+  .room-header div {
+    float: left;
+    margin: 10px 5px;
+  }
+  .roomAvatar img {
+    width: 36px;
+    height: 36px;
+    align-items: center;
+    margin: 4px;
+  }
+  .roomTitle {
+    line-height: 40px;
   }
 </style>

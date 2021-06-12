@@ -71,6 +71,9 @@
       closeAlert() {
         this.isAlert = false;
       }
+    },
+    beforeCreate() {
+      localStorage.clear();
     }
 
   }
