@@ -23,7 +23,11 @@
             </li>
           </ul>
         </el-main>
-        <el-footer>Room-Footer</el-footer>
+
+        <footer>
+          <SendMsg :roomId="roomId" @isUpdate="isUpdate"/>
+        </footer>
+
       </el-container>
 
   </el-container>
@@ -33,16 +37,18 @@
 <script>
   import { request } from 'network/request.js';
   import { formatData } from 'assets/js/timeZoneFormat.js';
+
   import SideBar from 'components/layout/SideBar.vue'
   import Message from 'components/message/Message.vue';
+  import SendMsg from 'components/message/SendMsg.vue';
 
   export default {
     name: 'Room',
     data() {
       return {
         msgList: [1,2,3,4,5,6],
-        roomTitle: 'Room-Title',
-        roomAvatarUrl: 'assets/logo.png',
+        roomTitle: '',
+        roomAvatarUrl: '~assets/logo.png',
         roomId: '',
         messages: [],
         userName: [],
@@ -52,7 +58,8 @@
     },
     components: {
       Message,
-      SideBar
+      SideBar,
+      SendMsg
     },
     methods: {
         getRoomData() {
@@ -75,7 +82,6 @@
         
       },
       dataInit() {
-        this.roomAvatarUrl = "";
         this.messages= [];
         this.userName= [];
         this.ts= [];
@@ -85,10 +91,17 @@
         this.$bus.$on("roomInfo",  res=> {
           this.roomTitle = res.title;
           this.roomAvatarUrl = res.avatarRid;
-          console.log(this.roomTitle,this.roomAvatarUrl);
+          // console.log(this.roomTitle,this.roomAvatarUrl);
         })
       },
-      
+      isUpdate(isUpdate) {
+        // console.log(isUpdate)
+        if(isUpdate){
+          this.dataInit()
+          this.getRoomData(); 
+          this.getRoomInfo();
+        }
+      }
     },
     watch: { 
       $route: { 
@@ -133,5 +146,14 @@
   }
   .roomTitle {
     line-height: 40px;
+  }
+  .el-footer {
+    background-color: white;
+    border: 0px solide rgb(242,243,245);
+    width: 100%;
+    color: rgb(68,68,68);
+    box-sizing: border-box;
+    height: 100px;
+    line-height: initial;
   }
 </style>

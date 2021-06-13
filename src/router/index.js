@@ -31,6 +31,11 @@ const routes = [
     component: Room
   },
   {
+    path: '/sendMsg',
+    name: 'SendMsg',
+    component: () => import('components/message/SendMsg.vue') 
+  },
+  {
     path: '/404',
     component: () => import('components/error/NotFound.vue')
 }

@@ -52,8 +52,8 @@
       },
       roomMsg(index) {
         this.$bus.$emit('roomInfo',{
-          'title': this.channelName[index],
-          'avatarRid': 'http://106.55.131.112:3000/avatar/room/'+this.avatars[index]
+            'title': this.channelName[index],
+            'avatarRid': 'http://106.55.131.112:3000/avatar/room/'+this.avatars[index]
           }
         );
       }
